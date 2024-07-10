@@ -8,4 +8,7 @@ public record Order(
         int quantity,
         LocalDate orderDate
 ) {
+    public double getTotalPrice(){
+        return product.price() * quantity;
+    }
 }
