@@ -2,13 +2,22 @@ package Repository;
 
 import Model.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductRepo {
     private List<Product> productList;
 
+    public ProductRepo() {
+        productList = new ArrayList<Product>();
+    }
+
     public void addProduct(Product product) {
         productList.add(product);
+    }
+
+    public void addProductList(List<Product> products) {
+        productList.addAll(products);
     }
 
     public void removeProduct(Product product) {
@@ -23,7 +32,7 @@ public class ProductRepo {
         return productList;
     }
 
-    public Product getProductById(int id) {
+    public Product findProductById(int id) {
         return productList.stream().filter(product -> product.id() == id).findFirst().orElse(null);
     }
 }
