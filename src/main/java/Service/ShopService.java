@@ -4,6 +4,7 @@ import Model.Order;
 import Model.Product;
 import Repository.Impl.ProductRepo;
 import Repository.OrderRepo;
+import Util.CommandLineStyle;
 
 import java.time.LocalDate;
 
@@ -21,12 +22,12 @@ public class ShopService {
         Product product = productRepo.findProductById(productId);
 
         if (product == null) {
-            System.out.println("Product " + productName + " does not exist.");
+            System.out.println(CommandLineStyle.red("Product " + productName + " does not exist."));
             return;
         }
 
         if (product.quantity() < quantity) {
-            System.out.println("Insufficient quantity for product " + productName + " .");
+            System.out.println(CommandLineStyle.red("Insufficient quantity for product " + productName + " ."));
             return;
         }
 
@@ -37,6 +38,6 @@ public class ShopService {
         // Update product quantity
 
 
-        System.out.println("Order placed successfully: " + order);
+        System.out.println(CommandLineStyle.green("Order placed successfully: " + order));
     }
 }

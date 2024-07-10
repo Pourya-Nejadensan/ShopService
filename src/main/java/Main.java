@@ -4,6 +4,7 @@ import Repository.Impl.OrderMapRepo;
 import Repository.Impl.ProductRepo;
 import Repository.OrderRepo;
 import Service.ShopService;
+import Util.CommandLineStyle;
 
 import java.util.Scanner;
 
@@ -38,63 +39,64 @@ public class Main {
         // Scanner
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Choose an option:");
-            System.out.println("1. Add Product");
-            System.out.println("2. Remove Product");
-            System.out.println("3. List Products");
-            System.out.println("4. Place Order");
-            System.out.println("5. Modify Order");
-            System.out.println("6. List Orders");
-            System.out.println("7. Exit");
-            System.out.print("Your choice: ");
+            System.out.println(CommandLineStyle.blue("Choose an option:"));
+            System.out.println(CommandLineStyle.yellow("1. Add Product"));
+            System.out.println(CommandLineStyle.yellow("2. Remove Product"));
+            System.out.println(CommandLineStyle.yellow("3. List Products"));
+            System.out.println(CommandLineStyle.yellow("4. Place Order"));
+            System.out.println(CommandLineStyle.yellow("5. Modify Order"));
+            System.out.println(CommandLineStyle.yellow("6. List Orders"));
+            System.out.println(CommandLineStyle.yellow("7. Exit"));
+            System.out.print(CommandLineStyle.blue("Your choice: "));
 
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    System.out.print("Enter Product ID: ");
+                    System.out.print(CommandLineStyle.blue("Enter Product ID: "));
                     int productId = scanner.nextInt();
                     scanner.nextLine();  // Consume newline
 
-                    System.out.print("Enter Product Name: ");
+                    System.out.print(CommandLineStyle.blue("Enter Product Name: "));
                     String productName = scanner.nextLine();
 
-                    System.out.print("Enter Product Price: ");
+                    System.out.print(CommandLineStyle.blue("Enter Product Price: "));
                     double productPrice = scanner.nextDouble();
 
-                    System.out.print("Enter Product Quantity: ");
+                    System.out.print(CommandLineStyle.blue("Enter Product Quantity: "));
                     int productQuantity = scanner.nextInt();
                     scanner.nextLine();  // Consume newline
 
-                    System.out.print("Enter Product Description: ");
+                    System.out.print(CommandLineStyle.blue("Enter Product Description: "));
                     String productDescription = scanner.nextLine();
 
                     productRepo.addProduct(new Product( productId, productName, productPrice, productQuantity, productDescription));
                     break;
 
                 case 2:
-                    System.out.print("Enter Product ID to Remove: ");
+                    System.out.print(CommandLineStyle.blue("Enter Product ID to Remove: "));
                     int removeProductId = scanner.nextInt();
                     productRepo.removeProductById(removeProductId);
                     break;
 
                 case 3:
+                    System.out.println(CommandLineStyle.blue("--- Product List ---"));
                     for (Product product : productRepo.getProductList()) {
-                        System.out.println(product);
+                        System.out.println(CommandLineStyle.cyan(product.toString()));
                     }
                     break;
 
                 case 4:
-                    System.out.print("Enter Order ID: ");
+                    System.out.print(CommandLineStyle.blue("Enter Order ID: "));
                     int orderId = scanner.nextInt();
 
-                    System.out.print("Enter Product ID: ");
+                    System.out.print(CommandLineStyle.blue("Enter Product ID: "));
                     int orderProductId = scanner.nextInt();
 
-                    System.out.print("Enter Quantity: ");
+                    System.out.print(CommandLineStyle.blue("Enter Quantity: "));
                     int orderQuantity = scanner.nextInt();
                     scanner.nextLine();  // Consume newline
 
-                    System.out.print("Enter Product Name: ");
+                    System.out.print(CommandLineStyle.blue("Enter Product Name: "));
                     String orderProductName = scanner.nextLine();
 
                     shopService.placeOrder(orderId, orderProductId, orderQuantity, orderProductName);
@@ -111,16 +113,17 @@ public class Main {
                     break;*/
 
                 case 6:
-                    orderRepo.getOrders().forEach(System.out::println);
+                    System.out.println(CommandLineStyle.blue("--- Order List ---"));
+                    orderRepo.getOrders().forEach(order -> System.out.println(CommandLineStyle.cyan(order.toString())));
                     break;
 
                 case 7:
-                    System.out.println("Exiting...");
+                    System.out.println(CommandLineStyle.blue("Exiting..."));
                     scanner.close();
                     return;
 
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println(CommandLineStyle.red("Invalid choice. Please try again."));
                     break;
             }
         }
