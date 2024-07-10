@@ -1,16 +1,25 @@
 import Model.Product;
 import Repository.Impl.OrderListRepo;
+import Repository.Impl.OrderMapRepo;
 import Repository.Impl.ProductRepo;
+import Repository.OrderRepo;
 import Service.ShopService;
 
 public class Main {
     public static void main(String[] args) {
         // Initialize repositories
         ProductRepo productRepo = new ProductRepo();
-        OrderListRepo orderListRepo = new OrderListRepo();
+        OrderRepo orderRepo;
+
+        // Choose implementation
+        if (args.length > 0 && args[0].equals("map")){
+            orderRepo = new OrderMapRepo();
+        } else {
+            orderRepo = new OrderListRepo();
+        }
 
         // Initialize shop service
-        ShopService shopService = new ShopService(productRepo, orderListRepo);
+        ShopService shopService = new ShopService(productRepo, orderRepo);
 
         // Add products to the repository
         Product laptop = new Product(1, "Laptop", 999.99, 10,"High-performance laptop");

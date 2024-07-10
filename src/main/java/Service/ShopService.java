@@ -2,19 +2,19 @@ package Service;
 
 import Model.Order;
 import Model.Product;
-import Repository.Impl.OrderListRepo;
 import Repository.Impl.ProductRepo;
+import Repository.OrderRepo;
 
 import java.time.LocalDate;
 
 
 public class ShopService {
     private ProductRepo productRepo;
-    private OrderListRepo orderListRepo;
+    private OrderRepo orderRepo;
 
-    public ShopService(ProductRepo productRepo, OrderListRepo orderListRepo) {
+    public ShopService(ProductRepo productRepo, OrderRepo orderRepo) {
         this.productRepo = productRepo;
-        this.orderListRepo = orderListRepo;
+        this.orderRepo = orderRepo;
     }
 
     public void placeOrder(int orderId, int productId, int quantity, String productName) {
@@ -32,7 +32,7 @@ public class ShopService {
 
         // Create a new order
         Order order = new Order(orderId, product,quantity, LocalDate.now());
-        orderListRepo.addOrder(order);
+        orderRepo.addOrder(order);
 
         // Update product quantity
 
