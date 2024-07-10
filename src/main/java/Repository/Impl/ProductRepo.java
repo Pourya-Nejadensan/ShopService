@@ -1,4 +1,4 @@
-package Repository;
+package Repository.Impl;
 
 import Model.Product;
 

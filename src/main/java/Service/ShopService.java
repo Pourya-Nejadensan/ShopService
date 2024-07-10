@@ -2,8 +2,8 @@ package Service;
 
 import Model.Order;
 import Model.Product;
-import Repository.OrderListRepo;
-import Repository.ProductRepo;
+import Repository.Impl.OrderListRepo;
+import Repository.Impl.ProductRepo;
 
 import java.time.LocalDate;
 
